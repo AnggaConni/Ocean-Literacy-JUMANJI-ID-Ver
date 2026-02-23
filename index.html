@@ -135,10 +135,32 @@
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         
         #disaster-fx { position: fixed; inset: 0; pointer-events: none; z-index: 40; opacity: 0; transition: opacity 0.5s; mix-blend-mode: overlay; }
+
+        /* --- BGM MIDI PLAYER --- */
+        midi-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            /* Trik invert warna agar player putih jadi dark mode */
+            filter: invert(0.9) hue-rotate(180deg);
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            transform: scale(0.9);
+            transform-origin: bottom right;
+        }
+        midi-player:hover { 
+            opacity: 1; 
+            transform: scale(1);
+        }
+
     </style>
     <!-- Three.js & OrbitControls -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
 </head>
 <body>
 
@@ -173,13 +195,32 @@
             <div class="player-list" id="player-list-ui"></div>
         </div>
 
+        <div id="audio-panel" style="position: absolute; top: 20px; right: 20px; background: rgba(15, 23, 42, 0.8); border: 1px solid #3b82f6; padding: 15px; border-radius: 8px; backdrop-filter: blur(5px); font-family: 'Roboto Mono', monospace; z-index: 100; pointer-events: auto; width: 200px;">
+            
+            <div style="color: #3b82f6; font-size: 0.8rem; margin-bottom: 5px; text-transform: uppercase;">🔊 BGM Volume</div>
+            <input type="range" id="bgm-volume" min="0" max="1" step="0.05" value="0.5" oninput="game.changeVolume(this.value)" style="width: 100%; cursor: pointer; accent-color: #3b82f6;">
+            
+            <div style="color: #3b82f6; font-size: 0.8rem; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase;">🎵 Ganti Lagu</div>
+            <select id="bgm-select" onchange="game.changeMusic(this.value)" style="width: 100%; background: #1e293b; color: white; border: 1px solid #475569; padding: 5px; border-radius: 4px; outline: none; cursor: pointer; font-family: inherit; font-size: 0.8rem;">
+                <option value="drunkensailor.mid">Drunken Sailor</option>
+                <option value="wellerman.mid">The Wellerman</option>
+                <option value="pirates.mid">Pirates of Caribbean</option>
+            </select>
+        </div>
+
         <div class="hud-bottom">
             <div id="log-area">Selamat datang! Siap belajar sambil berpetualang?</div>
             <button id="roll-btn" onclick="game.rollDice()">ROLL DICE</button>
         </div>
     </div>
 
-    <!-- MOUSE TOOLTIP -->
+    <midi-player
+      src="drunkensailor.mid"
+      sound-font
+      loop>
+    </midi-player>
+
+       <!-- MOUSE TOOLTIP -->
     <div id="tooltip"></div>
 
     <!-- MODAL & FX -->
@@ -625,6 +666,39 @@
                 };
                 anim();
             }
+
+            // --- AUDIO CONTROLS ---
+            changeVolume(val) {
+                // html-midi-player menggunakan Tone.js di latar belakang.
+                // Kita atur master volume milik Tone.js (tanpa ganggu efek suara Jumanji)
+                if (window.Tone) {
+                    if (val <= 0) {
+                        Tone.Destination.mute = true;
+                    } else {
+                        Tone.Destination.mute = false;
+                        // Konversi nilai linear (0-1) ke Decibel (-60 dB s/d 0 dB)
+                        Tone.Destination.volume.value = 20 * Math.log10(val);
+                    }
+                }
+            }
+
+            changeMusic(fileName) {
+                const player = document.querySelector('midi-player');
+                if (player) {
+                    // Hentikan lagu yang sedang jalan
+                    if (player.playing) player.stop();
+                    
+                    // Ganti file lagunya
+                    player.src = fileName;
+                    this.log(`🎵 BGM diganti ke: ${fileName}`);
+                    
+                    // Putar ulang (kasih jeda 500ms agar file baru selesai di-fetch)
+                    setTimeout(() => {
+                        player.start();
+                    }, 500);
+                }
+            }
+
 
             animateDiceExit(cb) {
                 let y = 15;
