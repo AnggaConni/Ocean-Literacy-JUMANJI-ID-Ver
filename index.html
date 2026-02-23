@@ -332,7 +332,7 @@
         // TIPE: 'Q' (Quiz), 'F' (Fact), 'D' (Disaster), 'P' (Policy)
         // DATA DIISI SESUAI SILABUS SENSEI ANGGA
         const TILE_DATA = {
-            // --- ZONA A ---
+            // --- ZONA A: HULU & HUJAN (1-20) ---
             1: { t: 'F', q: "Siklus Air Global", d: "Air di bumi terus berputar dari laut, ke atmosfer, ke darat, dan kembali ke laut. Jumlah air di bumi relatif tetap." },
             2: { t: 'Q', q: "Penyebab utama banjir bandang di hulu adalah...", o: ["Curah hujan rendah", "Alih fungsi hutan (Deforestasi)", "Sungai yang lebar"], a: 1, fx: "FLOOD" },
             3: { t: 'F', q: "Peran Vegetasi", d: "Akar pohon membantu tanah menyerap air (infiltrasi), mencegah air langsung lari ke permukaan (runoff)." },
@@ -340,62 +340,78 @@
             5: { t: 'D', q: "LONGSOR KECIL!", d: "Tanah labil runtuh menimpa jalurmu.", fx: "LANDSLIDE" },
             6: { t: 'F', q: "Jenis Tanah", d: "Tanah berpasir menyerap air cepat, tanah lempung lambat menyerap air (mudah genang)." },
             7: { t: 'Q', q: "Air hujan yang mengalir di permukaan tanah disebut...", o: ["Infiltrasi", "Runoff (Limpasan)", "Evaporasi"], a: 1, fx: "FLOOD" },
+            8: { t: 'F', q: "Sistem Peringatan Dini", d: "Kesiapsiagaan di hulu sangat penting. Sirine bahaya memberi waktu evakuasi emas bagi warga di bawah." },
             9: { t: 'Q', q: "Mengapa lereng terjal rawan longsor?", o: ["Gravitasi & tanah jenuh air", "Banyak pohon", "Angin kencang"], a: 0, fx: "LANDSLIDE" },
             10: { t: 'P', q: "KEBIJAKAN: Hutan di hulu mau dijadikan Villa atau Hutan Lindung?", o: ["Bangun Villa (Ekonomi)", "Hutan Lindung (Ekologi)"], a: 1, fx: "LANDSLIDE" },
+            12: { t: 'F', q: "Dampak Infrastruktur", d: "Pembangunan infrastruktur besar di hulu tanpa kajian ekologi seringkali memotong jalur air alami." },
             15: { t: 'D', q: "HUJAN EKSTREM LOKAL!", d: "Air bah tiba-tiba datang dari hulu.", fx: "FLOOD" },
-            20: { t: 'D', q: "LONGSOR BESAR!", d: "Lereng gunung runtuh total!", fx: "LANDSLIDE" },
+            18: { t: 'Q', q: "Cara termurah menjaga kestabilan lereng adalah...", o: ["Dibeton tebal", "Ditanami vegetasi berakar dalam", "Ditutup terpal"], a: 1, fx: "LANDSLIDE" },
+            20: { t: 'D', q: "LONGSOR BESAR!", d: "Lereng gunung runtuh total! Mundur jauh.", fx: "LANDSLIDE" },
 
-            // --- ZONA B ---
-            21: { t: 'F', q: "Sistem Sungai", d: "Sungai bukan tempat sampah! Sungai adalah nadi kehidupan yang mengalirkan air dari hulu ke hilir." },
+            // --- ZONA B: SUNGAI & KOTA (21-40) ---
+            21: { t: 'F', q: "Sistem Sungai", d: "Sungai bukan tempat sampah! Ia adalah nadi kehidupan yang mengalirkan air dari hulu ke hilir." },
             22: { t: 'Q', q: "Sampah plastik di sungai akhirnya akan bermuara di...", o: ["Hilang sendiri", "Laut (jadi Mikroplastik)", "Langit"], a: 1, fx: "OCEAN" },
             23: { t: 'D', q: "DRAINASE TERSUMBAT!", d: "Sampah menumpuk, air meluap ke jalan.", fx: "FLOOD" },
             25: { t: 'Q', q: "Kenapa betonisasi kota memperparah banjir?", o: ["Air tidak bisa meresap ke tanah", "Jalan jadi licin", "Kota jadi panas"], a: 0, fx: "FLOOD" },
+            26: { t: 'F', q: "Paradoks Pembangunan", d: "Fokus hanya pada infrastruktur fisik beton di kota kadang malah meningkatkan ketimpangan sosial saat bencana datang." },
             28: { t: 'D', q: "BANJIR KOTA!", d: "Sistem drainase kota gagal menampung hujan.", fx: "FLOOD" },
-            29: { t: 'F', q: "Urban Heat Island", d: "Kota lebih panas dari desa karena beton dan aspal menyerap panas matahari." },
+            29: { t: 'F', q: "Urban Heat Island", d: "Kota lebih panas dari desa karena beton dan aspal menyerap panas matahari, mengubah iklim mikro." },
+            31: { t: 'Q', q: "Apa itu Ruang Terbuka Hijau (RTH)?", o: ["Tempat parkir hijau", "Area resapan air & paru-paru kota", "Lapangan futsal sintetik"], a: 1, fx: "FLOOD" },
             33: { t: 'P', q: "KEBIJAKAN: Lahan kosong dijadikan Parkiran atau Taman Kota (RTH)?", o: ["Parkiran (Beton)", "Taman Kota (Resapan)"], a: 1, fx: "FLOOD" },
-            36: { t: 'D', q: "TANGGUL JEBOL!", d: "Debit air melebihi kapasitas tanggul.", fx: "FLOOD" },
+            36: { t: 'D', q: "TANGGUL JEBOL!", d: "Debit air melebihi kapasitas tanggul beton.", fx: "FLOOD" },
+            38: { t: 'Q', q: "Untuk mengurangi debit air ke kota, warga bisa membuat...", o: ["Sumur Resapan / Biopori", "Atap seng tambahan", "Pagar tinggi"], a: 0, fx: "FLOOD" },
             40: { t: 'D', q: "BANJIR BESAR PERKOTAAN!", d: "Lumpuh total akibat salah tata ruang.", fx: "FLOOD" },
 
-            // --- ZONA C ---
-            41: { t: 'F', q: "Delta Sungai", d: "Endapan sedimen di muara sungai yang subur namun rawan tenggelam." },
+            // --- ZONA C: DELTA & PESISIR (41-60) ---
+            41: { t: 'F', q: "Delta Sungai", d: "Endapan sedimen di muara sungai yang subur namun sangat rawan tenggelam." },
             43: { t: 'D', q: "PASANG TINGGI!", d: "Air laut naik ke daratan lebih tinggi dari biasanya.", fx: "OCEAN" },
-            45: { t: 'Q', q: "Abrasi pantai terjadi karena...", o: ["Terlalu banyak ikan", "Hilangnya hutan bakau & hantaman ombak", "Pasir dijual"], a: 1, fx: "MANGROVE" },
-            46: { t: 'F', q: "Land Subsidence", d: "Penurunan muka tanah akibat penyedotan air tanah berlebihan di pesisir." },
-            48: { t: 'D', q: "BANJIR ROB!", d: "Air laut masuk ke daratan saat pasang.", fx: "OCEAN" },
-            53: { t: 'P', q: "KEBIJAKAN: Tambak Udang Intensif atau Tambak Silvofishery (Mangrove)?", o: ["Intensif (Cepat Untung)", "Lestari (Jangka Panjang)"], a: 1, fx: "MANGROVE" },
-            56: { t: 'D', q: "ABRASI PARAH!", d: "Garis pantai mundur drastis, rumah hanyut.", fx: "MANGROVE" },
-            60: { t: 'D', q: "PESISIR RUSAK!", d: "Ekosistem pesisir hancur lebur.", fx: "OCEAN" },
+            45: { t: 'Q', q: "Abrasi pantai terjadi karena...", o: ["Terlalu banyak ikan", "Hilangnya perlindungan alami pantai", "Pasir dijual ke luar negeri"], a: 1, fx: "MANGROVE" },
+            46: { t: 'F', q: "Land Subsidence", d: "Penurunan muka tanah (subsidence) terjadi cepat di pesisir akibat penyedotan air tanah berlebihan." },
+            48: { t: 'D', q: "BANJIR ROB!", d: "Air laut masuk ke daratan saat pasang naik.", fx: "OCEAN" },
+            50: { t: 'Q', q: "Kombinasi Land Subsidence dan Naiknya Air Laut memicu...", o: ["Tsunami", "Tenggelamnya pesisir secara permanen", "Angin puting beliung"], a: 1, fx: "OCEAN" },
+            53: { t: 'P', q: "KEBIJAKAN: Tambak Udang Intensif atau Tambak Silvofishery (Mangrove)?", o: ["Intensif (Cepat Untung)", "Silvofishery (Lestari)"], a: 1, fx: "MANGROVE" },
+            56: { t: 'D', q: "ABRASI PARAH!", d: "Garis pantai mundur drastis, rumah nelayan hanyut.", fx: "MANGROVE" },
+            58: { t: 'F', q: "Pengetahuan Tradisional", d: "Komunitas pesisir seringkali memiliki kearifan lokal dalam membaca tanda bahaya alam." },
+            60: { t: 'D', q: "PESISIR RUSAK!", d: "Ekosistem pesisir hancur, ekonomi lokal lumpuh.", fx: "OCEAN" },
 
-            // --- ZONA D ---
-            61: { t: 'F', q: "Jenis Mangrove", d: "Ada Rhizophora (akar tunjang), Avicennia (akar napas), dan Sonneratia." },
-            62: { t: 'Q', q: "Fungsi utama akar mangrove adalah...", o: ["Hiasan pantai", "Menahan sedimen & cegah abrasi", "Racun ikan"], a: 1, fx: "MANGROVE" },
-            63: { t: 'D', q: "MANGROVE DITEBANG!", d: "Pertahanan pantai hilang seketika.", fx: "MANGROVE" },
-            66: { t: 'F', q: "Blue Carbon", d: "Mangrove menyimpan karbon 3-5x lebih banyak daripada hutan hujan tropis!" },
-            68: { t: 'D', q: "ABRASI MENINGKAT!", d: "Tanpa mangrove, ombak memakan daratan.", fx: "MANGROVE" },
-            73: { t: 'P', q: "KEBIJAKAN: Reklamasi Pantai atau Restorasi Mangrove?", o: ["Reklamasi (Beton)", "Restorasi (Hijau)"], a: 1, fx: "OCEAN" },
-            76: { t: 'D', q: "EKOSISTEM RUNTUH!", d: "Tidak ada ikan, tidak ada pelindung.", fx: "SNAKE" },
-            80: { t: 'D', q: "KEHILANGAN MANGROVE BESAR!", d: "Bencana ekologis skala besar.", fx: "MANGROVE" },
+            // --- ZONA D: MANGROVE (61-80) ---
+            61: { t: 'F', q: "Jenis Mangrove", d: "Ada Rhizophora (akar tunjang), Avicennia (akar napas), dan Sonneratia. Masing-masing punya fungsi spesifik." },
+            62: { t: 'Q', q: "Fungsi utama akar mangrove adalah...", o: ["Hiasan bibir pantai", "Menahan sedimen & meredam energi ombak", "Meracuni ikan predator"], a: 1, fx: "MANGROVE" },
+            63: { t: 'D', q: "MANGROVE DITEBANG!", d: "Pertahanan garis depan pantai hilang seketika.", fx: "MANGROVE" },
+            66: { t: 'F', q: "Blue Carbon", d: "Mangrove menyimpan karbon 3-5x lebih banyak daripada hutan hujan tropis. Penjaga iklim sejati!" },
+            68: { t: 'D', q: "ABRASI MENINGKAT!", d: "Tanpa mangrove, ombak langsung memakan daratan.", fx: "MANGROVE" },
+            70: { t: 'Q', q: "Selain menahan ombak, mangrove berfungsi sebagai...", o: ["Nursery ground (tempat bertelur ikan)", "Tempat membuang limbah", "Bahan bakar kapal utama"], a: 0, fx: "OCEAN" },
+            73: { t: 'P', q: "KEBIJAKAN: Reklamasi Pantai atau Restorasi Mangrove?", o: ["Reklamasi Pesisir (Beton)", "Restorasi Mangrove (Hijau)"], a: 1, fx: "OCEAN" },
+            76: { t: 'D', q: "EKOSISTEM RUNTUH!", d: "Rantai makanan pesisir putus. Nelayan kehilangan tangkapan.", fx: "MANGROVE" },
+            80: { t: 'D', q: "KEHILANGAN MANGROVE BESAR!", d: "Bencana ekologis skala besar tak terhindarkan.", fx: "MANGROVE" },
 
-            // --- ZONA E ---
-            81: { t: 'F', q: "Laut & Panas", d: "Laut menyerap 90% kelebihan panas akibat pemanasan global." },
-            82: { t: 'Q', q: "Kenaikan muka air laut (Sea Level Rise) disebabkan oleh...", o: ["Ikan bertambah banyak", "Mencairnya es kutub & pemuaian air", "Kapal selam"], a: 1, fx: "OCEAN" },
-            83: { t: 'D', q: "BADAI LAUT!", d: "Suhu laut hangat memicu badai tropis.", fx: "OCEAN" },
-            88: { t: 'D', q: "CORAL BLEACHING!", d: "Terumbu karang memutih dan mati karena laut panas.", fx: "OCEAN" },
-            90: { t: 'Q', q: "Apa dampak CO2 berlebih pada laut?", o: ["Laut jadi manis", "Asidifikasi (Laut jadi asam)", "Laut jadi biru"], a: 1, fx: "OCEAN" },
-            96: { t: 'D', q: "EKOSISTEM LAUT RUSAK!", d: "Rantai makanan di laut putus.", fx: "OCEAN" },
-            100: { t: 'D', q: "KRISIS LAUT!", d: "Laut sekarat, manusia terancam.", fx: "OCEAN" },
+            // --- ZONA E: LAUT & IKLIM (81-100) ---
+            81: { t: 'F', q: "Laut & Panas", d: "Laut menyerap 90% kelebihan panas akibat pemanasan global, menjaga bumi tidak mendidih." },
+            82: { t: 'Q', q: "Kenaikan muka air laut (Sea Level Rise) disebabkan oleh...", o: ["Ikan paus bertambah banyak", "Mencairnya es kutub & pemuaian massa air", "Limbah kapal"], a: 1, fx: "OCEAN" },
+            83: { t: 'D', q: "BADAI LAUT TROPIS!", d: "Suhu laut yang lebih hangat memicu badai yang lebih ganas.", fx: "OCEAN" },
+            85: { t: 'F', q: "Literasi Kelautan", d: "Memahami pengaruh laut terhadap kita, dan pengaruh kita terhadap laut adalah kunci Ocean Literacy." },
+            88: { t: 'D', q: "CORAL BLEACHING!", d: "Terumbu karang memutih dan mati karena stres suhu laut panas.", fx: "OCEAN" },
+            90: { t: 'Q', q: "Apa dampak gas CO2 berlebih yang diserap laut?", o: ["Laut jadi manis", "Asidifikasi (Laut jadi asam, merusak cangkang hewan)", "Laut jadi biru jernih"], a: 1, fx: "OCEAN" },
+            93: { t: 'F', q: "Rantai Makanan Laut", d: "Fitoplankton di laut menghasilkan lebih dari 50% oksigen yang kita hirup." },
+            96: { t: 'D', q: "DEAD ZONES!", d: "Area laut kehabisan oksigen akibat limbah pupuk dari darat.", fx: "OCEAN" },
+            100: { t: 'D', q: "KRISIS LAUT!", d: "Sistem pendukung kehidupan laut sekarat, manusia terancam.", fx: "OCEAN" },
 
-            // --- ZONA F (101-160) ---
-            101: { t: 'F', q: "Nature-based Solutions", d: "Solusi berbasis alam: menggunakan proses alam untuk mengatasi masalah bencana." },
-            108: { t: 'D', q: "BENCANA BERULANG!", d: "Kita tidak belajar dari sejarah.", fx: "FLOOD" },
-            115: { t: 'Q', q: "Kolaborasi Pentahelix melibatkan siapa saja?", o: ["Hanya Pemerintah", "Pemerintah, Warga, Akademisi, Bisnis, Media", "Hanya LSM"], a: 1, fx: "LANDSLIDE" },
-            120: { t: 'D', q: "KRISIS IKLIM LOKAL!", d: "Cuaca tidak menentu, panen gagal.", fx: "OCEAN" },
-            128: { t: 'D', q: "GAGAL KESIAPSIAGAAN!", d: "Peringatan dini tidak sampai ke warga.", fx: "FLOOD" },
-            136: { t: 'D', q: "TEKANAN POPULASI!", d: "Daya dukung lingkungan terlampaui.", fx: "LANDSLIDE" },
-            140: { t: 'D', q: "DAMPAK MASA DEPAN!", d: "Generasi mendatang menanggung akibatnya.", fx: "OCEAN" },
-            146: { t: 'D', q: "UJIAN SISTEM!", d: "Apakah infrastruktur kita tahan bencana?", fx: "FLOOD" },
-            154: { t: 'D', q: "KRISIS TERAKHIR!", d: "Ujian terakhir sebelum keseimbangan pulih.", fx: "OCEAN" },
-            160: { t: 'F', q: "ECOSYSTEM RESTORED!", d: "Selamat! Kamu telah memulihkan keseimbangan alam." }
+            // --- ZONA F: SOLUSI & RESILIENSI (101-160) ---
+            101: { t: 'F', q: "Nature-based Solutions", d: "Solusi Berbasis Alam: menggunakan atau meniru proses alam untuk mengatasi masalah bencana lingkungan." },
+            105: { t: 'Q', q: "Pendekatan komunikasi yang baik saat krisis adalah...", o: ["Menyembunyikan data", "Komunikasi langsung yang jujur & terarah (Low-text, High-context)", "Menunggu viral"], a: 1, fx: "FLOOD" },
+            108: { t: 'D', q: "BENCANA BERULANG!", d: "Masyarakat tidak belajar dari sejarah masa lalu.", fx: "FLOOD" },
+            112: { t: 'F', q: "Paradoks Keselamatan", d: "Terkadang, merasa terlalu aman dengan tanggul beton membuat warga lupa cara mitigasi mandiri." },
+            115: { t: 'Q', q: "Kolaborasi Pentahelix melibatkan siapa saja?", o: ["Hanya Pemerintah Pusat", "Pemerintah, Warga, Akademisi, Bisnis, Media", "Hanya aparat keamanan"], a: 1, fx: "LANDSLIDE" },
+            120: { t: 'D', q: "KRISIS IKLIM LOKAL!", d: "Cuaca tidak menentu, kalender musim gagal digunakan.", fx: "OCEAN" },
+            125: { t: 'Q', q: "Untuk merancang sistem tanggap bencana yang efektif, kita harus...", o: ["Membangun server mahal yang rumit", "Membuat alat digital sederhana & low-cost (seperti Google Fullstack)", "Menyewa konsultan asing"], a: 1, fx: "FLOOD" },
+            128: { t: 'D', q: "GAGAL KESIAPSIAGAAN!", d: "Peringatan dini terlambat didistribusikan ke warga rentan.", fx: "FLOOD" },
+            132: { t: 'F', q: "Resiliensi Komunitas", d: "Komunitas yang tangguh adalah yang saling percaya dan memiliki data sumber daya (seperti peta Foodways) sendiri." },
+            136: { t: 'D', q: "TEKANAN POPULASI!", d: "Daya dukung lingkungan terlampaui oleh eksploitasi.", fx: "LANDSLIDE" },
+            140: { t: 'D', q: "DAMPAK MASA DEPAN!", d: "Efek domino kerusakan mulai dirasakan lintas zona.", fx: "OCEAN" },
+            146: { t: 'D', q: "UJIAN SISTEM!", d: "Apakah infrastruktur dan budaya kita tahan hantaman bencana?", fx: "FLOOD" },
+            150: { t: 'P', q: "KEBIJAKAN AKHIR: Pemulihan Pasca Bencana fokus pada...", o: ["Cepat bangun kembali seperti semula", "Build Back Better (Bangun lebih baik & adaptif)"], a: 1, fx: "LANDSLIDE" },
+            154: { t: 'D', q: "KRISIS TERAKHIR!", d: "Ujian ketahanan terakhir sebelum keseimbangan bumi pulih.", fx: "OCEAN" },
+            160: { t: 'F', q: "ECOSYSTEM RESTORED!", d: "Selamat! Kolaborasi dan pengetahuanmu berhasil memulihkan keseimbangan ekosistem dan melindungi masa depan." }
         };
 
         const PLAYER_COLORS = [0xef4444, 0x3b82f6, 0x22c55e, 0xeab308, 0xa855f7, 0xf97316];
